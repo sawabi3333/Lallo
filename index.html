@@ -2,155 +2,191 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Valentine ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Lallo ❤️</title>
 
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f8a5c2, #fbc2eb);
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: linear-gradient(135deg, #f8cdda, #f78ca0);
+      font-family: "Segoe UI", sans-serif;
       overflow: hidden;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(15px);
-      padding: 30px 25px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 30px;
       border-radius: 20px;
       text-align: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-      animation: fadeIn 1.2s ease;
-      max-width: 320px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 350px;
+      position: relative;
+      z-index: 2;
     }
 
-    h1 {
-      margin-bottom: 10px;
-      color: white;
-    }
-
-    p {
-      color: white;
-      opacity: 0.9;
-    }
+    h1 { color: white; font-size: 32px; }
+    p { color: white; opacity: 0.9; }
 
     .photo {
-      width: 100%;
+      width: 200px;
       border-radius: 15px;
       margin: 15px 0;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
 
     button {
       border: none;
-      padding: 10px 18px;
-      border-radius: 20px;
+      padding: 12px 20px;
+      border-radius: 25px;
       font-size: 16px;
       cursor: pointer;
-      transition: 0.3s ease;
+      margin: 5px;
+      transition: 0.3s;
     }
 
-    .yes {
-      background: #ff4d6d;
-      color: white;
+    .yes { background: #ff4b6e; color: white; }
+    .no  { background: #ff9aa2; color: white; position: absolute; }
+
+    .countdown { color: white; margin: 10px 0; font-weight: bold; }
+
+    .letter {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
     }
 
-    .no {
-      background: #ff8fa3;
-      color: white;
-      position: relative;
+    .letter-box {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 300px;
+      text-align: center;
+      animation: pop 0.4s ease;
     }
 
-    button:hover {
-      transform: scale(1.1);
+    @keyframes pop {
+      from { transform: scale(0.7); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .gallery { display: none; margin-top: 10px; }
+    .gallery img {
+      width: 80px;
+      border-radius: 10px;
+      margin: 4px;
     }
 
     .heart {
-      position: absolute;
-      color: white;
+      position: fixed;
+      bottom: -20px;
       font-size: 20px;
-      animation: floatUp 6s linear infinite;
+      animation: float 6s linear infinite;
       opacity: 0.7;
     }
 
-    @keyframes floatUp {
-      from { transform: translateY(100vh); opacity: 1; }
-      to { transform: translateY(-10vh); opacity: 0; }
+    @keyframes float {
+      to { transform: translateY(-110vh); opacity: 0; }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- MUSIC -->
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
-
   <div class="card">
-    <h1>Hey <span id="name">lallo </span> ❤️</h1>
+    <h1>Hey Lallo ❤️</h1>
 
-    <img src="<img src="photo.jpg.HEIC">
-" class="photo" alt="Our photo" />
+    <!-- MAIN PHOTO -->
+    <img src="photo.jpg" class="photo" alt="Our photo"/>
 
     <p>
-      Every day with you feels like my favorite chapter. <br>
-      So I have one important question...
+      Every day with you feels like my favorite chapter.<br>
+      Love always,<br><b>Sabsobi 💌</b>
     </p>
 
-    <h3>Will you be my Valentine? 💘</h3>
+    <div class="countdown" id="countdown"></div>
 
-    <div class="buttons">
-      <button class="yes" onclick="sayYes()">Yes 💖</button>
-      <button class="no" onmouseover="moveNo(this)">No 🙈</button>
+    <button class="yes" onclick="showLetter()">Yes 💖</button>
+    <button class="no" id="noBtn">No 🙈</button>
+
+    <!-- PHOTO GALLERY -->
+    <div class="gallery" id="gallery">
+      <img src="photo1.jpg">
+      <img src="photo2.jpg">
+      <img src="photo3.jpg">
+    </div>
+  </div>
+
+  <!-- LOVE LETTER -->
+  <div class="letter" id="letter">
+    <div class="letter-box">
+      <h2>My Love Lallo ❤️</h2>
+      <p>
+        You are the most beautiful thing in my life.<br>
+        I promise to love you forever.<br><br>
+        — Yours always, Sabsobi 💌
+      </p>
+      <button onclick="closeLetter()">Close</button>
     </div>
   </div>
 
   <script>
-    const music = document.getElementById('bgMusic');
+    // Moving NO button
+    const noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 80);
+      const y = Math.random() * (window.innerHeight - 40);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
 
-    document.body.addEventListener('click', () => {
-      music.play().catch(() => {});
-    }, { once: true });
-
-    function sayYes() {
-      alert('YAY!! I love you forever 💕');
+    // Show love letter + gallery
+    function showLetter() {
+      document.getElementById("letter").style.display = "flex";
+      document.getElementById("gallery").style.display = "block";
     }
 
-    function moveNo(btn) {
-      const x = Math.random() * (window.innerWidth - btn.clientWidth);
-      const y = Math.random() * (window.innerHeight - btn.clientHeight);
-      btn.style.position = 'absolute';
-      btn.style.left = x + 'px';
-      btn.style.top = y + 'px';
+    function closeLetter() {
+      document.getElementById("letter").style.display = "none";
     }
 
     // Floating hearts
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerText = '❤️';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = 4 + Math.random() * 3 + "s";
       document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 500);
 
-      setTimeout(() => heart.remove(), 6000);
-    }, 400);
+    // Countdown to Feb 14
+    const countdownEl = document.getElementById("countdown");
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date(now.getFullYear(), 1, 14);
+      if (now > target) target.setFullYear(target.getFullYear() + 1);
+
+      const diff = target - now;
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff / (1000*60*60)) % 24);
+      const mins = Math.floor((diff / (1000*60)) % 60);
+
+      countdownEl.innerText =
+        `⏳ ${days}d ${hours}h ${mins}m until Valentine’s Day`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
   </script>
 
 </body>
