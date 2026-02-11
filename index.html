@@ -152,9 +152,13 @@
 
     // Show love letter + gallery
     function showLetter() {
-      document.getElementById("letter").style.display = "flex";
-      document.getElementById("gallery").style.display = "block";
-    }
+  document.getElementById("letter").style.display = "flex";
+  document.getElementById("gallery").style.display = "none";
+
+  const music = document.getElementById("bgMusic");
+  music.play();
+}
+
 
     function closeLetter() {
       document.getElementById("letter").style.display = "none";
@@ -190,6 +194,9 @@
     updateCountdown();
     setInterval(updateCountdown, 60000);
   </script>
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 </body>
 </html>
